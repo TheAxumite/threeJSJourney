@@ -180,14 +180,15 @@ export default class EventEmitter
         names = names.replace(/[^a-zA-Z0-9 ,/.]/g, '')
         names = names.replace(/[,/]+/g, ' ')
         names = names.split(' ')
+       
         return names
     }
 
     resolveName(name)
     {
+        
         const newName = {}
         const parts = name.split('.')
-
         newName.original  = name
         newName.value     = parts[ 0 ]
         newName.namespace = 'base' // Base namespace

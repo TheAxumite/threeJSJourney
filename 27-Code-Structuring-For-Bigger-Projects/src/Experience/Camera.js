@@ -14,7 +14,7 @@ export default class Camera
          this.setInstance()
          this.setOrbitsCOntrols()
 
-       console.log(this)
+     
        
     }
 
@@ -34,7 +34,13 @@ export default class Camera
     resize()
     {
         this.instance.aspect = this.sizes.Width / this.sizes.Height
+        console.log(this.instance.aspect)
         this.instance.updateProjectionMatrix()
         
+    }
+
+    update()
+    {
+        this.controls.update()
     }
 }

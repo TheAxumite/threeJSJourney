@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import Sizes from './Utils/Sizes.js'
 import Time from  './Utils/Time.js'
 import Camera from './Camera.js'
+import Renderer from './Utils/Renderer.js'
 
 let instance = null
 
@@ -11,7 +12,8 @@ export default class Experience
     constructor(canvas)
     {
         if(instance)
-        {
+        {   
+            console.log('null')
             return instance
         }
         else
@@ -31,6 +33,7 @@ export default class Experience
         this.time = new Time()
         this.scene = new THREE.Scene()
         this.camera = new Camera()
+        this.renderer = new Renderer()
 
         //Sizes resize Event
         this.sizes.on('resize', ()=>
@@ -48,12 +51,14 @@ export default class Experience
     }
     resize(sizes)
     {
+        
         this.camera.resize()
         
     }
 
     update()
     {
+        
         this.camera.update()
     }
 
