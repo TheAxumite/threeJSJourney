@@ -4,7 +4,6 @@ export default class EventEmitter
     {
         this.callbacks = {}
         this.callbacks.base = {}
-        
     }
 
     on(_names, callback)
@@ -28,23 +27,21 @@ export default class EventEmitter
         // Each name
         names.forEach((_name) =>
         {
-            
             // Resolve name
             const name = this.resolveName(_name)
-          
+
             // Create namespace if not exist
             if(!(this.callbacks[ name.namespace ] instanceof Object))
                 this.callbacks[ name.namespace ] = {}
-                
+
             // Create callback if not exist
             if(!(this.callbacks[ name.namespace ][ name.value ] instanceof Array))
                 this.callbacks[ name.namespace ][ name.value ] = []
-              
+
             // Add callback
             this.callbacks[ name.namespace ][ name.value ].push(callback)
-           
         })
-        // console.log(this)
+
         return this
     }
 
@@ -109,7 +106,6 @@ export default class EventEmitter
 
     trigger(_name, _args)
     {
-        
         // Errors
         if(typeof _name === 'undefined' || _name === '')
         {
@@ -134,9 +130,7 @@ export default class EventEmitter
         {
             // Try to find callback in each namespace
             for(const namespace in this.callbacks)
-            
             {
-               
                 if(this.callbacks[ namespace ] instanceof Object && this.callbacks[ namespace ][ name.value ] instanceof Array)
                 {
                     this.callbacks[ namespace ][ name.value ].forEach(function(callback)
@@ -175,20 +169,19 @@ export default class EventEmitter
 
     resolveNames(_names)
     {
-        
         let names = _names
         names = names.replace(/[^a-zA-Z0-9 ,/.]/g, '')
         names = names.replace(/[,/]+/g, ' ')
         names = names.split(' ')
-       
+
         return names
     }
 
     resolveName(name)
     {
-        
         const newName = {}
         const parts = name.split('.')
+
         newName.original  = name
         newName.value     = parts[ 0 ]
         newName.namespace = 'base' // Base namespace
@@ -198,7 +191,7 @@ export default class EventEmitter
         {
             newName.namespace = parts[ 1 ]
         }
-        
+
         return newName
     }
 }
