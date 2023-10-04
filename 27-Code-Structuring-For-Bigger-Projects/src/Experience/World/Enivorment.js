@@ -32,8 +32,7 @@ export default class Environment
        
         this.environmentMap = {}
         this.environmentMap.intensity = 0.4
-        this.environmentMap.texture = this.resources.items.environmentMapTextures
-        console.log( this.resources.items.environmentMapTextures)
+        this.environmentMap.texture = this.resources.items
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
 
          this.scene.environment = this.environmentMap.texture
@@ -46,8 +45,9 @@ export default class Environment
                 if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
                 {
                     
-                    child.material.envMap = this.environmentMap.texture.environmentMapTextures
-                    console.log(child.material)
+                    child.material.envMap = this.resources.items.environmentMapTextures
+                    console.log( this.resources.itemshasOwnProperty('environmentMapTextures'
+                        ))
                     child.material.envMapIntensity = this.environmentMap.intensity
                     child.material.needsUpdate = true
                 }
