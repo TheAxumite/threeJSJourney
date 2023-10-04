@@ -46,8 +46,7 @@ export default class Environment
                 {
                     
                     child.material.envMap = this.resources.items.environmentMapTextures
-                    console.log( this.resources.itemshasOwnProperty('environmentMapTextures'
-                        ))
+                   
                     child.material.envMapIntensity = this.environmentMap.intensity
                     child.material.needsUpdate = true
                 }
