@@ -8,32 +8,27 @@ export default [
             '/textures/environmentMap/py.jpg',
             '/textures/environmentMap/ny.jpg',
             '/textures/environmentMap/pz.jpg',
-            '/textures/environmentMap/nz.jpg' 
+            '/textures/environmentMap/nz.jpg'
         ]
     },
     {
-        name:'dirtColorTexture',
-        type: 'colorTexture',
-        path: [
-            'textures/dirt/color.jpg',
-        ],
+        name: 'dirtColorTexture',
+        type: 'texture',
+        path: 'textures/dirt/color.jpg'
+
     },
     {
-        name:'dirtNormalTexture',
-        type: 'normalTexture',
-        path: [
-            'textures/dirt/normal.jpg',
-        ],
+        name: 'dirtNormalTexture',
+        type: 'texture',
+        path: 'textures/dirt/normal.jpg'
+
     },
     {
-        name:'foxModel',
+        name: 'foxModel',
         type: 'gltfModel',
-        path: [
-        
-            'models/Fox/glTF/Fox.gltf',
-            'models/Fox/glTF/Fox.bin'   
-        ]
-    
-}
+        path: 'models/Fox/glTF/Fox.gltf'
+
+
+
+    }
 ]
- 

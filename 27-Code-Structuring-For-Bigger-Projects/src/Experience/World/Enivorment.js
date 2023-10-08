@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import Experience from "../Experience";
 
+
 export default class Environment
 {
     constructor(){
@@ -9,16 +10,17 @@ export default class Environment
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         
+       
         this.setSunLight()
         this.setEnvironmentMap()
-        
+       
         // this.setTextureMap()
        
     }
 
     setSunLight()
     {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 4)
+        this.sunLight = new THREE.DirectionalLight('#ffffff', 1)
         this.sunLight.castShadow = true
         this.sunLight.shadow.camera.far = 15
         this.sunLight.shadow.mapSize.set(1024, 1024)
@@ -31,13 +33,13 @@ export default class Environment
     {
        
         this.environmentMap = {}
-        this.environmentMap.intensity = 0.4
+        this.environmentMap.intensity = 0.01
         this.environmentMap.texture = this.resources.items
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
 
          this.scene.environment = this.environmentMap.texture
     
-        this.setEnvironmentMap.updateMaterials = () =>
+        this.setEnvironmentMap.updateMaterial = () =>
         {
             this.scene.traverse((child) =>
             {
@@ -49,42 +51,14 @@ export default class Environment
                    
                     child.material.envMapIntensity = this.environmentMap.intensity
                     child.material.needsUpdate = true
+                  
                 }
             
                 
             })
             
          }
-        
-       this.setEnvironmentMap.updateMaterials()
-    }
-    setTextureMap()
-    {
-       
-        this.textureMap = {}
-        this.textureMap.intensity = 0.4
-        this.textureMap.texture = this.resources.items    
-        
-
-         this.scene.environment = this.textureMap.texture
-    
-        this.setTextureMap.updateMaterials = () =>
-        {
-            this.scene.traverse((child) =>
-            {
-                
-                if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial && child.geometry.type === 'PlaneGeometry')
-                {
-                    
-                    child.material.map = this.textureMap.texture.dirtColorTexture
-                    child.material.needsUpdate = true
-                }
-                
-                
-            })
-            
-         }
-        
-       this.setTextureMap.updateMaterials()
+         
+       this.setEnvironmentMap.updateMaterial()
     }
 }

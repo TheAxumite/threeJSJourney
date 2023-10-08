@@ -11,7 +11,7 @@ export default class Resources extends EventEmitter
 
         //Options
         this.sources = sources
-      
+       
         //Setup
         this.items = {}
         this.toLoad = this.sources.length
@@ -34,6 +34,7 @@ export default class Resources extends EventEmitter
         // this.loaders.dracoLoad = Draco ? null: this.loaders.gltfLoader.setDRACOLoader(this.dracoLoader)
         this.loaders.textureLoader = new THREE.TextureLoader()
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader()
+        
 
 
     }
@@ -43,9 +44,9 @@ export default class Resources extends EventEmitter
         //Load each source
         for(const source of this.sources)
         {
-            if(source.type === 'cubeTexture')
+            if(source.type === 'gltfModel')
             {
-                this.loaders.cubeTextureLoader.load(
+                this.loaders.gltfLoader.load(
                     source.path,
                     (file) =>
                     {
@@ -54,9 +55,20 @@ export default class Resources extends EventEmitter
                     })
                 
             }
-            if(source.type === 'colorTexture')
+            else if(source.type === 'texture')
             {
                 this.loaders.textureLoader.load(
+                    source.path,
+                    (file) =>
+                    {
+                        this.sourceLoaded(source, file)
+                       
+                    })
+                
+            }
+            else if(source.type === 'cubeTexture')
+            {
+                this.loaders.cubeTextureLoader.load(
                     source.path,
                     (file) => 
                     {   
@@ -64,13 +76,14 @@ export default class Resources extends EventEmitter
                     }
                 )
             }
+            
            
         }
         
         
     }
 
-    sourceLoaded(source, file)
+    sourceLoaded(source,file)
     {
         
         this.items[source.name] = file
@@ -80,7 +93,7 @@ export default class Resources extends EventEmitter
         if(this.loaded === this.toLoad)
         {   
             {
-                console.log(this.items)
+                
                 this.trigger('ready')
             }
             
