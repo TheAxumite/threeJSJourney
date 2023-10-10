@@ -5,36 +5,41 @@ import Environment from "./Enivorment";
 import Floor from "./Floor";
 
 
-export default class World
-{
-    constructor()
-    {
+export default class World {
+    constructor() {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-       
 
-       
-     
-        this.resources.on('ready', () => 
-        {
+
+
+
+        this.resources.on('ready', () => {
             //Setup
-           
-            this.floor = new Floor()
-            this.fox = new Fox()
-            this.environment = new Environment()
-           
-          
-          
             
+            this.fox = new Fox()
+            this.floor = new Floor()
+           
+            this.environment = new Environment()
+
+
+
+
         })
 
 
-       
-      
 
-       
-       
+
+
+
+
+    }
+
+    update(){
+        if(this.fox)
+        {
+        this.fox.update()
+        }
     }
 
 }

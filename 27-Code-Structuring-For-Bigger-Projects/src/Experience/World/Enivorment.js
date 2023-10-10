@@ -9,31 +9,34 @@ export default class Environment
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-        
-       
+      
         this.setSunLight()
         this.setEnvironmentMap()
+      
        
-        // this.setTextureMap()
        
     }
 
     setSunLight()
     {
         this.sunLight = new THREE.DirectionalLight('#ffffff', 1)
+        this.directionalLightHelper = new THREE.DirectionalLightHelper(this.sunLight, 0.2)
         this.sunLight.castShadow = true
-        this.sunLight.shadow.camera.far = 15
+        this.sunLight.shadow.camera.far = 150
         this.sunLight.shadow.mapSize.set(1024, 1024)
-        this.sunLight.shadow.normalBias = 0.05
+        this.sunLight.shadow.normalBias = 1
         this.sunLight.position.set(5.5, 5, - 1.25)
-        this.scene.add(this.sunLight)
+        // this.sunLight.target.position.set(0,0,0)
+        
+       
+        this.scene.add(this.sunLight, this.directionalLightHelper)
     
     }
     setEnvironmentMap()
     {
        
         this.environmentMap = {}
-        this.environmentMap.intensity = 0.01
+        this.environmentMap.intensity = 0.04
         this.environmentMap.texture = this.resources.items
         this.environmentMap.texture.colorSpace = THREE.SRGBColorSpace
 
@@ -48,7 +51,7 @@ export default class Environment
                 {
                     
                     child.material.envMap = this.resources.items.environmentMapTextures
-                   
+                    
                     child.material.envMapIntensity = this.environmentMap.intensity
                     child.material.needsUpdate = true
                   

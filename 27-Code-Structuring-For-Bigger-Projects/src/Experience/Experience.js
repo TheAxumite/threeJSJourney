@@ -5,10 +5,8 @@ import Resources from './Utils/Resources.js'
 import Camera from './Camera.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
-import Environment from './World/Enivorment.js'
+import Debug from './Utils/Debug.js'
 import sources from './sources.js'
-import Floor from './World/Floor.js'
-import Fox from './World/Fox.js'
 
 
 
@@ -36,14 +34,18 @@ export default class Experience
         this.canvas = canvas
       
         //Setup
+        this.debug = new Debug()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()
-        this.resources = new Resources(sources)
-        this.world = new World()
-       
+        this.resources = new Resources(sources) 
         this.camera = new Camera()
         this.renderer = new Renderer()
+        this.world = new World()
+        
+       
+        
+      
      
     
      
@@ -77,6 +79,13 @@ export default class Experience
     {
         this.camera.update()
         this.renderer.update()
+       
+       this.world.update()
+           
+     
+        
+        
+       
         
         
     }
