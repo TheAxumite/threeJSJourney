@@ -10,9 +10,10 @@ const gui = new dat.GUI();
 
 const parameters = {
     color: 0xff0000,
+  
     spin: () =>
     {
-        gsap.to(mesh.rotation,{duration: 10, y:mesh.rotation.y + Math.PI *3.3 })
+        gsap.to(mesh.rotation,{duration: 200, y:mesh.rotation.y + 1000 })
     }
 }
 
@@ -29,7 +30,7 @@ const scene = new THREE.Scene()
 /**
  * Object
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
+const geometry = new THREE.BoxGeometry(parameters.width,  parameters.height, parameters.depth)
 const material = new THREE.MeshBasicMaterial({ color: parameters.color })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
@@ -42,6 +43,7 @@ gui.add(mesh.position, 'z').min(-3).max(2).step(0.01).name('Z-Axis');
 gui.add(mesh, 'visible');
 
 gui.add(material, 'wireframe');
+
 gui.addColor(parameters, 'color').onChange(()=> material.setValues({color: parameters.color} ))
 gui.add(parameters, 'spin')
 
