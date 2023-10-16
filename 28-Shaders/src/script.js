@@ -129,6 +129,7 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime() 
+    
     //Update material
     material.uniforms.uTime.value = elapsedTime;
     
