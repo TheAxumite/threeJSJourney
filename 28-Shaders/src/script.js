@@ -43,15 +43,19 @@ const changeSize = new Float32Array(count * 3)
 for(let i = 0; i < count; i++)
 {
     random[i]  = Math.random()
+    
 }
 
 for(let i = 0; i < changeSize.length; i++)
 {
+   
     changeSize[i]  = geometry.attributes.position.array[i] * 2/3
 }
 
 geometry.setAttribute('aRandom', new THREE.BufferAttribute(random, 1))
+
 geometry.setAttribute('newSize', new THREE.BufferAttribute(changeSize, 3))
+
 
 console.log(geometry.attributes)
 // Material
@@ -61,7 +65,7 @@ const material = new THREE.ShaderMaterial({
     fragmentShader: testFragmentShader, 
     uniforms:
     {
-        uFrequency: { value: new THREE.Vector2(10,5) },
+        uFrequency: { value: new THREE.Vector2(10,2) },
         uTime: { value: 0},
         uColor: { value: new THREE.Color('orange')},
         UTexture: {value: flagTexture}
@@ -129,7 +133,7 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime() 
-    
+    console.log((Math.sin(elapsedTime) + 1.0) * 0.5)
     //Update material
     material.uniforms.uTime.value = elapsedTime;
     
