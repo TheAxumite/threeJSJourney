@@ -233,7 +233,7 @@ void main() {
 
 
 float strength = sin(1.0 - vUv.x * 10.0);
-strength += sin(1.0 - vUv.y * 1.0);
+strength -= sin(1.0 - vUv.y * 1.0);
 
 
  gl_FragColor = vec4(strength, strength, strength, 1.0);
