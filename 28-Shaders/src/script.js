@@ -53,7 +53,6 @@ for(let i = 0; i < changeSize.length; i++)
 }
 
 geometry.setAttribute('aRandom', new THREE.BufferAttribute(random, 1))
-
 geometry.setAttribute('newSize', new THREE.BufferAttribute(changeSize, 3))
 
 
@@ -61,7 +60,6 @@ console.log(geometry.attributes)
 // Material
 const material = new THREE.ShaderMaterial({
     vertexShader: testVertexShader,
-
     fragmentShader: testFragmentShader, 
     uniforms:
     {

@@ -21,6 +21,7 @@ const scene = new THREE.Scene()
  */
 // Geometry
 const geometry = new THREE.PlaneGeometry(1, 1, 64, 32)
+geometry.rotateX(0.5)
 const count = (geometry.attributes.uv.count) * 2
 const random = new Float32Array(count)
 const uv2 = new Float32Array(count)
