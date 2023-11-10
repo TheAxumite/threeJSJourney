@@ -1,14 +1,12 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'lil-gui'
-import testVertexShader from './shaders/test/vertex.glsl'
-import testFragmentShader from './shaders/test/fragment.glsl'
+import GUI from 'lil-gui'
 
 /**
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+const gui = new GUI({ width: 340 })
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -17,42 +15,18 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /**
- * Test mesh
+ * Water
  */
 // Geometry
-const geometry = new THREE.PlaneGeometry(1, 1, 64, 32)
-// geometry.rotateX(0.5)
-const count = (geometry.attributes.uv.count) * 2
-const random = new Float32Array(count)
-const uv2 = new Float32Array(count)
-console.log(geometry.attributes)
-
-for(let i = 0; i < count; i++)
-{
-   
-    uv2[i]  = geometry.attributes.uv.array[count-1-i]
-    random[i] = Math.floor(Math.random() * 2);
- }
-
- console.log(random)
-geometry.setAttribute('auv2', new THREE.Float32BufferAttribute(uv2, 2))
-geometry.setAttribute('Random', new THREE.Float32BufferAttribute(random, 2))
+const waterGeometry = new THREE.PlaneGeometry(2, 2, 128, 128)
 
 // Material
-const material = new THREE.ShaderMaterial({
-    vertexShader: testVertexShader,
-    fragmentShader: testFragmentShader,
-    side: THREE.DoubleSide,
-
-    uniforms:
-    {
-    uTime: {value: 0}
-    }
-})
+const waterMaterial = new THREE.MeshBasicMaterial()
 
 // Mesh
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
+const water = new THREE.Mesh(waterGeometry, waterMaterial)
+water.rotation.x = - Math.PI * 0.5
+scene.add(water)
 
 /**
  * Sizes
@@ -82,7 +56,7 @@ window.addEventListener('resize', () =>
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.set(0, 0, 1)
+camera.position.set(1, 1, 1)
 scene.add(camera)
 
 // Controls
@@ -98,7 +72,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-
 /**
  * Animate
  */
@@ -106,14 +79,10 @@ const clock = new THREE.Clock()
 
 const tick = () =>
 {
+    const elapsedTime = clock.getElapsedTime()
+
     // Update controls
     controls.update()
-
-    const elapsedTime = clock.getElapsedTime()
-    
-    //Update material
-    material.uniforms.uTime.value = elapsedTime;
-
 
     // Render
     renderer.render(scene, camera)
